@@ -82,15 +82,16 @@ export function toMarkdown(question: Question): string {
 
     if (question.type === "multiple_choice_question") {
         const options: string = question.options
-            .map((option) => ` ${option}`)
+            .map((option) => `- ${option}`)
             .join("\n");
 
-        return ` ${firstLine}
-        ${secondLine}
-        ${options}`;
+        return `${firstLine}
+${secondLine}
+${options}`;
     }
+
     return `${firstLine}
-    ${secondLine}`;
+${secondLine}`;
 }
 
 /**
