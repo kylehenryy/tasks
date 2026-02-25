@@ -56,7 +56,7 @@ export function isValid(question: Question, answer: string): boolean {
  * name "My First Question" would become "9: My First Q".
  */
 export function toShortForm(question: Question): string {
-    return "";
+    return question.id.toString() + ": " + question.name.slice(0, 10);
 }
 
 /**
@@ -77,7 +77,20 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    return "";
+    const firstLine: string = `# ${question.name}`;
+    const secondLine: string = question.body;
+
+    if (question.type === "multiple_choice_question") {
+        const options: string = question.options
+            .map((option) => ` ${option}`)
+            .join("\n");
+
+        return ` ${firstLine}
+        ${secondLine}
+        ${options}`;
+    }
+    return `${firstLine}
+    ${secondLine}`;
 }
 
 /**
