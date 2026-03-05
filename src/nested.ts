@@ -228,13 +228,46 @@ export function changeQuestionTypeById(
  * Remember, if a function starts getting too complicated, think about how a helper function
  * can make it simpler! Break down complicated tasks into little pieces.
  */
+
+function updateOption(
+    options: string[],
+    targetIndex: number,
+    newOption: string,
+): string[] {
+    if (targetIndex === -1) {
+        const addedOption = [...options, newOption];
+        return addedOption;
+    }
+    const replacedOption = options.map((opt, i) => {
+        if (i === targetIndex) {
+            return newOption;
+        }
+        return opt;
+    });
+    return replacedOption;
+}
+
 export function editOption(
     questions: Question[],
     targetId: number,
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    return [];
+    const edited = questions.map((q) => {
+        if (q.id !== targetId) {
+            return q;
+        }
+        const newOptions = updateOption(
+            q.options,
+            targetOptionIndex,
+            newOption,
+        );
+        const changedOption: Question = { ...q, options: newOptions };
+
+        return changedOption;
+    });
+
+    return edited;
 }
 
 /***
